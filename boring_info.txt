@@ -1,7 +1,0 @@
-This project contains a simple calendar dataset.
-
-The calendar dataset includes 
-1. month numbers and 
-2. month names
-
-We'll add more information once we complete our sprint planning. 
