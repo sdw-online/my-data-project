@@ -1,2 +1,3 @@
-# my-data-project
-A simple project to understand how GitHub works
+# Project Description
+
+This project contains a calendar dataset with month numbers and month names.
