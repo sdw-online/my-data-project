@@ -84,3 +84,19 @@ jobs:
           commit-message: "Automatically deploy changes from DEV to staging"
           title: "Deploy changes from DEV to staging"
           body: "This PR automatically deploys all changes from development to staging."
+
+      # 3. Auto-merge the PR if it’s created
+      - name: Auto-merge PR
+        uses: actions/github-script@v6
+        if: success()
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            if (pr) {
+              github.pulls.merge({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number,
+                merge_method: 'squash'
+              });
+            }

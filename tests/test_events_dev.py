@@ -23,3 +23,12 @@ def test_event_summary():
     summary_df = pd.read_csv('data/event_summary.csv')
     assert 'EventType' in summary_df.columns, ">>> 'EventType' column missing <<<"
     assert 'EventCount' in summary_df.columns, ">>> 'EventCount' column missing <<<"
+
+
+
+# 3. Data Validation Test: Check if the summary file contains valid data
+def test_event_summary_data():
+    summary_df = pd.read_csv('data/event_summary.csv')
+    assert not summary_df.empty, ">>> event_summary.csv should not be empty <<<"
+    valid_event_types = ['Birthday', 'Appointment', 'Holiday']
+    assert all(event in valid_event_types for event in summary_df['EventType']), ">>> Invalid EventType found <<<"
