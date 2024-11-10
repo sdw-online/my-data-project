@@ -1,16 +1,16 @@
-name: DEV CI/CD Pipeline for Events
+name: Staging CI/CD Pipeline for Events
 
 on:
   push:
     branches:
-      - development
+      - staging
       
 permissions:
   contents: write 
 
   
 jobs:
-  build_dev_environment:
+  build_staging_environment:
     runs-on: ubuntu-latest
     steps:
       # 1. Checkout the code
@@ -30,8 +30,8 @@ jobs:
           python -m pip install --no-cache-dir pandas pytest
           python -m pip list
 
-  run_dev_tests:
-    needs: build_dev_environment
+  run_staging_tests:
+    needs: build_staging_environment
     runs-on: ubuntu-latest
     steps:
       # 1. Checkout the code again for the test job
@@ -62,14 +62,14 @@ jobs:
           python --version
           pip --version
 
-      # 6. Run unit and integration tests using python -m pytest
-      - name: Run unit and integration tests
+      # 6. Run end-to-end and performance tests
+      - name: Run end-to-end and performance tests
         run: |
-          python -m pytest tests/test_events_dev.py
+          python -m pytest tests/test_events_staging.py
 
 
   create_pr_to_staging:
-    needs: run_dev_tests
+    needs: run_staging_tests
     runs-on: ubuntu-latest
     steps:
       # 1. Checkout the code before creating a pull request
@@ -80,10 +80,10 @@ jobs:
       - name: Create pull request to Staging
         uses: peter-evans/create-pull-request@v3
         with:
-          branch: staging
-          commit-message: "Automatically deploy changes from DEV to staging"
-          title: "Deploy changes from DEV to staging"
-          body: "This PR automatically deploys all changes from development to staging."
+          branch: main
+          commit-message: "Automatically deploy changes from Staging to PROD"
+          title: "Deploy changes from staging to PROD"
+          body: "This PR automatically deploys all changes from staging to production."
 
       # 3. Auto-merge the PR if it’s created
       - name: Auto-merge PR
