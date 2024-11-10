@@ -78,26 +78,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # 2. Create new branch for PR
-      - name: Create PR branch
-        run: |
-          git checkout -b staging-pr-main
-          git push origin staging-pr-main
+      # 2. Authenticate GitHub CLI
+      - name: Authenticate GitHub CLI
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
-      # 3. Debug the process
-      - name: Debug Info
-        run: |
-          git branch
-          git status
-          git log -1
-
-      # 4. Raise PR to merge into PRODUCTION
+      # 3. Create a pull request to the main branch
       - name: Create pull request to Production
-        uses: peter-evans/create-pull-request@v5
-        with:
-          branch: staging-pr-main
-          base: main
-          commit-message: "Manual review required: Deploy changes from STAGING to PRODUCTION"
-          title: "Deploy changes from STAGING to PRODUCTION"
-          draft: true
-
+        run: |
+          gh pr create -B main -H staging --title "Deploy changes from STAGING to PRODUCTION" --body "This PR is created by GitHub Actions for manual review."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
