@@ -39,10 +39,17 @@ jobs:
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)/src
 
-      # 3. Run unit and integration tests
+      # 3. Verify Python and pip paths
+      - name: Print Python Path
+        run: |
+          which python
+          python --version
+          pip --version
+
+      # 4. Run unit and integration tests
       - name: Run unit and integration tests
         run: |
-          pytest tests/test_events_dev.py
+          python -m pytest tests/test_events_dev.py
 
   create_pr_to_staging:
     needs: run_dev_tests
