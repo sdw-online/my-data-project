@@ -91,6 +91,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           branch: main
+          base: staging
           commit-message: "Automatically deploy changes from STAGING to PRODUCTION"
           title: "Deploy changes from STAGING to PRODUCTION"
           token: ${{ secrets.GITHUB_TOKEN }}
