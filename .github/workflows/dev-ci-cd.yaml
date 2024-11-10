@@ -4,7 +4,11 @@ on:
   push:
     branches:
       - development
+      
+permissions:
+  contents: write 
 
+  
 jobs:
   build_dev_environment:
     runs-on: ubuntu-latest
