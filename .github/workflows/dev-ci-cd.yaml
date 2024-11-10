@@ -23,7 +23,8 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pandas pytest
+          python -m pip install pandas pytest
+          python -m pip list
 
   run_dev_tests:
     needs: build_dev_environment
