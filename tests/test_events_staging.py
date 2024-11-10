@@ -23,3 +23,10 @@ def test_performance_event_processing():
     process_events('data/events.csv')
     end_time = time.time()
     assert (end_time - start_time) < 1, ">>> Event processing took too long <<<"
+
+
+# 3. Data Integrity Test: Check if summary data is consistent
+def test_data_integrity():
+    summary_df = pd.read_csv('data/event_summary.csv')
+    total_events = summary_df['EventCount'].sum()
+    assert total_events == 8, ">>> Total event count mismatch <<<"

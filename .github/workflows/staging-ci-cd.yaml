@@ -68,35 +68,19 @@ jobs:
           python -m pytest tests/test_events_staging.py
 
 
-  create_pr_to_staging:
+  create_pr_to_production:
     needs: run_staging_tests
     runs-on: ubuntu-latest
     steps:
-      # 1. Checkout the code before creating a pull request
-      - name: Checkout repo to create PR
+      
+      # 1. Checkout code 
+      - name: Checkout code
         uses: actions/checkout@v2
-  
-      # 2. Create a Pull Request to the staging branch if tests pass
-      - name: Create pull request to Staging
+      
+        # 2. Raise PR to merge into PRODUCTION
+      - name: Create pull request to Production
         uses: peter-evans/create-pull-request@v3
         with:
           branch: main
-          commit-message: "Automatically deploy changes from Staging to PROD"
-          title: "Deploy changes from staging to PROD"
-          body: "This PR automatically deploys all changes from staging to production."
-
-      # 3. Auto-merge the PR if it’s created
-      - name: Auto-merge PR
-        uses: actions/github-script@v6
-        if: success()
-        with:
-          script: |
-            const pr = context.payload.pull_request;
-            if (pr) {
-              github.pulls.merge({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: pr.number,
-                merge_method: 'squash'
-              });
-            }
+          commit-message: "Automatically deploy changes from STAGING to PRODUCTION"
+          title: "Deploy changes from STAGING to PRODUCTION"
