@@ -73,18 +73,21 @@ jobs:
   create_pr_to_production:
     needs: run_staging_tests
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       # 1. Checkout code
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # 2. Authenticate GitHub CLI
+      # 2. Authenticate GitHub CLI with PAT
       - name: Authenticate GitHub CLI
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+        run: echo "${{ secrets.PAT_TOKEN }}" | gh auth login --with-token
 
       # 3. Create a pull request to the main branch
       - name: Create pull request to Production
         run: |
           gh pr create -B main -H staging --title "Deploy changes from STAGING to PRODUCTION" --body "This PR is created by GitHub Actions for manual review."
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
