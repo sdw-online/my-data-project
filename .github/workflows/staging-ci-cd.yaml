@@ -81,7 +81,7 @@ jobs:
       
         # 2. Raise PR to merge into PRODUCTION
       - name: Create pull request to Production
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v5
         with:
           branch: main
           commit-message: "Automatically deploy changes from STAGING to PRODUCTION"
