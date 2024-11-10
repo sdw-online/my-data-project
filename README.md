@@ -1,3 +1,3 @@
 # Project Description
 
-This project contains a calendar dataset with month numbers and month names.
+This shows how to set up CI/CD pipelines for multiple environments
