@@ -90,9 +90,9 @@ jobs:
       - name: Create pull request to Production
         uses: peter-evans/create-pull-request@v5
         with:
-          branch: main
+          branch: staging-pr-main
           base: staging
-          commit-message: "Automatically deploy changes from STAGING to PRODUCTION"
+          commit-message: "Manual review required: Deploy changes from STAGING to PRODUCTION"
           title: "Deploy changes from STAGING to PRODUCTION"
           draft: true
 
