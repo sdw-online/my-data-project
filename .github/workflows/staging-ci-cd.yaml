@@ -6,7 +6,9 @@ on:
       - staging
       
 permissions:
-  contents: write 
+  contents: write
+  pull-requests: write
+
 
   
 jobs:
@@ -72,7 +74,7 @@ jobs:
     needs: run_staging_tests
     runs-on: ubuntu-latest
     steps:
-      
+
       # 1. Checkout code 
       - name: Checkout code
         uses: actions/checkout@v2
