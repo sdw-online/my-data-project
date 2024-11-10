@@ -91,7 +91,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           branch: staging-pr-main
-          base: staging
+          base: main
           commit-message: "Manual review required: Deploy changes from STAGING to PRODUCTION"
           title: "Deploy changes from STAGING to PRODUCTION"
           draft: true
