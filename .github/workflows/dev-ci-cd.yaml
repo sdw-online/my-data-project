@@ -68,8 +68,12 @@ jobs:
     needs: run_dev_tests
     runs-on: ubuntu-latest
     steps:
-      # 1. Create a Pull Request to the staging branch if tests pass
-      - name: Create Pull Request to Staging
+      # 1. Checkout the code before creating a pull request
+      - name: Checkout repo to create PR
+        uses: actions/checkout@v2
+  
+      # 2. Create a Pull Request to the staging branch if tests pass
+      - name: Create pull request to Staging
         uses: peter-evans/create-pull-request@v3
         with:
           branch: staging
