@@ -86,3 +86,4 @@ jobs:
           branch: main
           commit-message: "Automatically deploy changes from STAGING to PRODUCTION"
           title: "Deploy changes from STAGING to PRODUCTION"
+          push-to-fork: false
